@@ -116,9 +116,12 @@ jobs:
 
               docker pull ${{ secrets.DOCKER_REPO }}:qa
 
+              - name: Check Docker image tag
+              run: echo "Image: ${{ secrets.DOCKER_REPO }}:qa"
+
               docker run -d \
               --name db_feed \
               -p 6379:6379 \
               --restart unless-stopped \
-              -e REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}\
+              -e REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} \
               ${{ secrets.DOCKER_REPO }}:qa
